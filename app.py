@@ -3,6 +3,7 @@ import pandas as pd
 import os
 from crewai import Agent, Task, Crew
 from langchain_groq import ChatGroq
+import streamlit_shadcn_ui as ui
 
 
 def main():
@@ -36,28 +37,86 @@ def main():
     """
     st.markdown(html, unsafe_allow_html=True)
     
-    multiline_text = """
-    Introducing **CrewAI Research Assistant:** Your Personal Navigator in the Vast Ocean of **Web Research**. Whether you're delving into new academic territories, exploring cutting-edge technological advancements, or simply satisfying your curiosity on a diverse array of topics, CrewAI Research Assistant is here to streamline your journey.
-
-    At the heart of CrewAI Research Assistant lies a synergistic team of AI agents, each specialized in distinct facets of web research. These agents collaborate seamlessly to offer you a comprehensive and nuanced exploration of any subject matter. Here's how CrewAI Research Assistant empowers your research:
-    """
-    col1, col2 = st.columns([5,1])
+    
+    col1, col2, col3 = st.columns([4,1,1])
     with col1:
-        pass
+        tab_selector = ui.tabs(
+        options=[
+            "The Research Crew",
+            "Agents",
+            "Tasks",
+            "Tools",
+
+        ],
+        default_value="The Research Crew",
+        key="tab3",
+    )
     
     with col2:
-        st.image('logo.png')
+        st.image('logo3.png')
         
+    with col3:
+        pass
+     
+    if tab_selector == "The Research Crew":
+        st.markdown("**The Research Crew:** Your Personal Navigator in the Vast Ocean of **Web Research**. Whether you're delving into new academic territories, exploring cutting-edge technological advancements, or simply satisfying your curiosity on a diverse array of topics, CrewAI Research Assistant is here to streamline your journey.")
+        st.markdown("At the heart of CrewAI Research Assistant lies a synergistic team of AI agents, each specialized in distinct facets of web research. These agents collaborate seamlessly to offer you a comprehensive and nuanced exploration of any subject matter. Here's how CrewAI Research Assistant empowers your research.")
+
+    elif tab_selector == "Agents":
+        st.markdown("### Agents")
+        st.code("""
+                🧔🏻‍♂️ Manager_Agent - coordinates the web research, assigns tasks, and ensures efficiency. 
+                🧑🏻‍🦰 YouTube_Research_Agent - discovers quality YouTube content related to specific topics. 
+                👩🏽 Web_Research_Agent - finds relevant, reliable information on the internet. 
+                🧒🏻 Research_Summarizer_Agent - synthesizes findings from various agents, highlighting key insights. 
+                👨🏼‍🦰 Writer_Agent - composes clear, engaging articles based on the summary.
+                """, language='Python')
+
         
-    st.markdown(multiline_text, unsafe_allow_html=True)
-    agent_list = ['Manager_Agent', 'YouTube_Research_Agent', 'Web_Research_Agent', 'Research_Summarizer_Agent', 'Writer_Agent']
-    st.multiselect(label="Select your Agents:", options=agent_list)
+    elif tab_selector == "Tasks":
+        st.markdown("**Tasks**")
+        
+        st.markdown("")
+        st.markdown("")
+        st.markdown("")
+        st.markdown("")
+        
+    elif tab_selector == "Tools":
+        st.markdown("**Tools**")
+        st.markdown("")
+        st.markdown("")
+        st.markdown("")
+        st.markdown("")
+        st.markdown("")
+     
+     
+     
     
-    task_list = ['ResearchNewsTask', 'ResearchYoutubeTask', 'ArticleWriterTask', 'HistoricalEventsResearchTask']
-    st.multiselect(label="Pick Tasks:", options=task_list)
+    agents_list = ['Manager_Agent', 'YouTube_Research_Agent', 'Web_Research_Agent', 'Research_Summarizer_Agent', 'Writer_Agent']
+    st.multiselect(label="Select your Agents:", options=agents_list)
+    
+    tasks_list = ['ResearchNewsTask', 'ResearchYoutubeTask', 'ArticleWriterTask', 'HistoricalEventsResearchTask']
+    st.multiselect(label="Pick Tasks:", options=tasks_list)
 
 
 
+    Problem_Definition_Agent = Agent(
+        role='Problem_Definition_Agent',
+        goal="""Manage and coordinate the web research process to gather high-quality, relevant information for the project.
+        This includes:
+        Identifying key research topics and questions based on the project requirements.
+        Assigning research tasks to appropriate agents or team members.
+        Monitoring progress and ensuring research tasks are completed efficiently and effectively.
+        Reviewing and synthesizing research findings to provide comprehensive and actionable insights.""",
+        backstory="""You are a highly skilled and experienced manager in overseeing web research projects.
+        Your expertise lies in breaking down complex research requirements, delegating tasks to the right people,
+        and ensuring the research process runs smoothly and delivers valuable insights. You have a keen eye for detail
+        and are adept at identifying the most relevant and reliable sources of information on the web. Your goal is to
+        lead the research team to success by providing clear guidance, effective coordination, and strategic decision-making.""",
+        verbose=True,
+        allow_delegation=False,
+        llm=llm,
+        )
 
     Manager_Agent = Agent(
         role='Web_Research_Manager',
@@ -173,41 +232,43 @@ def main():
     if user_question:
 
         task_define_problem = Task(
-        description="""Clarify and define the machine learning problem, 
+        description="""Clarify and define the area if research interest, 
             including identifying the problem type and specific requirements.
             
-            Here is the user's problem:
+            Here is the user's research question:
 
             {ml_problem}
             """.format(ml_problem=user_question),
         agent=Problem_Definition_Agent,
-        expected_output="A clear and concise definition of the machine learning problem."
+        expected_output="A clear and concise definition of the specific research questions asked and it scope."
         )
 
         if data_upload:
-            task_assess_data = Task(
-                description="""Evaluate the user's data for quality and suitability, 
-                suggesting preprocessing or augmentation steps if needed.
+            # task_assess_data = Task(
+            #     description="""Evaluate the user's data for quality and suitability, 
+            #     suggesting preprocessing or augmentation steps if needed.
                 
-                Here is a sample of the user's data:
+            #     Here is a sample of the user's data:
 
-                {df}
+            #     {df}
 
-                The file name is called {uploaded_file}
+            #     The file name is called {uploaded_file}
                 
-                """.format(df=df.head(),uploaded_file=uploaded_file),
-                agent=Data_Assessment_Agent,
-                expected_output="An assessment of the data's quality and suitability, with suggestions for preprocessing or augmentation if necessary."
-            )
+            #     """.format(df=df.head(),uploaded_file=uploaded_file),
+            #     agent=Data_Assessment_Agent,
+            #     expected_output="An assessment of the data's quality and suitability, with suggestions for preprocessing or augmentation if necessary."
+            # )
+            pass
         else:
-            task_assess_data = Task(
-                description="""The user has not uploaded any specific data for this problem,
-                but please go ahead and consider a hypothetical dataset that might be useful
-                for their machine learning problem. 
-                """,
-                agent=Data_Assessment_Agent,
-                expected_output="A hypothetical dataset that might be useful for the user's machine learning problem, along with any necessary preprocessing steps."
-            )
+            # task_assess_data = Task(
+            #     description="""The user has not uploaded any specific data for this problem,
+            #     but please go ahead and consider a hypothetical dataset that might be useful
+            #     for their machine learning problem. 
+            #     """,
+            #     agent=Data_Assessment_Agent,
+            #     expected_output="A hypothetical dataset that might be useful for the user's machine learning problem, along with any necessary preprocessing steps."
+            # )
+            pass
 
         task_recommend_model = Task(
         description="""Suggest suitable machine learning models for the defined problem 
@@ -235,8 +296,8 @@ def main():
 
 
         crew = Crew(
-            agents=[Problem_Definition_Agent, Data_Assessment_Agent, Model_Recommendation_Agent,  Starter_Code_Generator_Agent], #, Summarization_Agent],
-            tasks=[task_define_problem, task_assess_data, task_recommend_model,  task_generate_code], #, task_summarize],
+            agents= agents_list,
+            tasks=tasks_list,
             verbose=2
         )
 
