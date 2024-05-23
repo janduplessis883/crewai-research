@@ -1,0 +1,19 @@
+AI MedReview Project Overview
+
+The AI MedReview project, initiated by Brompton Health Primary Care Network (PCN), aims to revolutionize how healthcare providers analyze and utilize patient feedback, specifically from the Friends and Family Test (FFT). Traditionally, FFT data has only been superficially counted and reported, offering limited insights into patient satisfaction. AI MedReview seeks to delve deeper, leveraging advanced natural language processing and machine learning to extract actionable insights from this valuable data source. The project aims to uncover nuanced sentiments within patient responses, assigning detailed scores and going beyond simple quantitative metrics to provide a comprehensive picture of patient satisfaction levels. Additionally, robust named entity recognition (NER) techniques ensure that patient privacy is maintained by anonymizing any personally identifiable information.
+
+Goals for the Health and Care Analytic Conference 2024
+
+The AI MedReview paper for the Health and Care Analytic Conference 2024 will present an early-stage review of the project’s progress, focusing on data quality assessment and the identification of trends within FFT feedback. This paper serves as a checkpoint to evaluate the effectiveness of AI MedReview’s analytic tools and methodologies. It will assess the quality of FFT data, including data collection processes, cleansing techniques, and overall data integrity, to build confidence in subsequent analyses. The paper will also showcase preliminary findings on patient satisfaction levels, sentiment analysis results, and potential areas for improvement in primary care, demonstrating the power of AI MedReview’s analytic tools.
+
+Data Collection and Privacy Measures
+
+AI MedReview collects FFT feedback via a user-friendly Tally form, ensuring that patients provide anonymized feedback by omitting personally identifiable information. The primary goal of processing this data is to improve healthcare services and enhance patient satisfaction within the Brompton Health PCN. The project operates under the legitimate interests of Brompton Health PCN as per GDPR regulations. To protect patient privacy, advanced anonymization techniques, including NER, are employed to remove PII from the feedback. Stringent security measures, such as encryption and regular audits, ensure the data’s integrity and confidentiality.
+
+Data Visualization and Analysis Tools
+
+The AI MedReview project employs a comprehensive suite of data visualization tools to present patient feedback insights effectively. The PCN Dashboard offers a high-level overview, including visualizations of monthly responses, average ratings, and sentiment analysis. Feedback is categorized through sentiment analysis and zero-shot classification, identifying prevalent themes and areas for improvement. The Surgery Dashboard provides a granular view, enabling targeted analysis at the individual practice level. Additional tools like the Feedback Timeline, Sentiment Analysis Page, GPT-4 Summary, and Word Clouds further enhance the ability to explore feedback data, identify trends, and communicate insights effectively.
+
+Conclusion and Future Potential
+
+AI MedReview represents a significant advancement in the analysis and utilization of patient feedback within the healthcare sector. By leveraging cutting-edge AI technologies, the platform provides detailed insights from FFT feedback, empowering healthcare providers to make data-driven decisions and drive continuous improvement. The project’s comprehensive visualization capabilities enable exploration of feedback data at various levels of granularity, from high-level trends to individual messages. As AI MedReview continues to refine its tools and methodologies, it holds immense promise in shaping the future of patient-centric healthcare delivery, ultimately enhancing patient satisfaction and care quality.
